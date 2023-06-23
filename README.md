@@ -8,7 +8,9 @@ The first time you run this, it will create a config file `config.py`. Edit it t
 
 ## Commands
 `sw memberName otherGuy etc` to switch in members (as many as you'd like!)
+
 `sw out` to switch out
+
 `sw delete` to delete the last switch
 
 You can list members by name, ID, or display name. Put multi-word names 'in quotes'.
