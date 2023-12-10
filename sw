@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+# quick hack to make it not yell at me
+import warnings
+warnings.filterwarnings("ignore")
 from pluralkit import Client
 import sys
 # Import the config file if it's there
@@ -36,6 +39,23 @@ elif args[0].lower() == "out":
         pk.new_switch([]) # quite literally switch to no one
     except:
         print("Failed to get your system. Is your token in config.py correct?")
+elif args[0].lower() == "f":
+    front = pk.get_fronters()
+    # get the last switch
+    switches = pk.get_switches(limit=1)
+
+    from datetime import datetime, timezone
+    switchLength = datetime.utcnow() - switches[0].timestamp.datetime
+    output = ""
+    if switchLength.days > 0:
+        output += switchLength.days + "d "
+    hours = switchLength.seconds//3600
+    if hours > 0:
+        output+= str(hours) + "h "
+    minutes = (switchLength.seconds//60)%60
+    if minutes >= 0:
+        output += str(minutes) + "m "
+    print(output + front[0].name)
 else:
     # Get list of members
     try:

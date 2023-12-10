@@ -1,4 +1,7 @@
 __pycache__/
+.venv/
+.count
+.front
 # Don't leak your token, kids!
 config.py 
 
