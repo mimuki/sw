@@ -47,15 +47,27 @@ elif args[0].lower() == "f":
     from datetime import datetime, timezone
     switchLength = datetime.utcnow() - switches[0].timestamp.datetime
     output = ""
+
     if switchLength.days > 0:
-        output += switchLength.days + "d "
+        output += switchLength.days + "d"
     hours = switchLength.seconds//3600
     if hours > 0:
-        output+= str(hours) + "h "
+        # we need a space
+        if switchLength.days > 0:
+            output += " "
+        output+= str(hours) + "h"
     minutes = (switchLength.seconds//60)%60
     if minutes >= 0:
-        output += str(minutes) + "m "
-    print(output + front[0].name)
+        if hours > 0 or switchLength.days > 0:
+            output += " "
+        output += str(minutes) + "m"
+    spacing = " "
+
+    # because i am cool and different
+    if args[1].lower() == "tmux":
+        spacing = "#{?client_prefix,#[fg=black]#[bg=black],#[fg=white]#[bg=brightyellow]}#{?client_prefix,#[fg=brightwhite]#[bg=black],#[fg=black]#[bg=white]}"
+    print(output + spacing + front[0].name)
+
 else:
     # Get list of members
     try:
